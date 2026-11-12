@@ -1,0 +1,36 @@
+name: Firmware build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+        with:
+          version: "1.x"
+
+      - name: Test motion fusion and packet formats
+        run: |
+          c++ -std=c++17 -I tests/stubs -I firmware tests/motion_test.cpp -o /tmp/motion-test
+          /tmp/motion-test
+
+      - name: Install pinned ESP32 core
+        run: |
+          arduino-cli core update-index \
+            --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+          arduino-cli core install esp32:esp32@3.3.10 \
+            --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+
+      - name: Compile firmware
+        run: ./scripts/build.sh
