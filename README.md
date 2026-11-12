@@ -1,6 +1,6 @@
 # Waveshare AMOLED 1.8 Motion Controller — BLE / Wi-Fi
 
-Single-screen motion firmware for dancers using Max over Wi-Fi/OSC, BLE, or both.
+Single-screen motion firmware using Max over Wi-Fi/OSC, BLE, or both.
 Hardware: Waveshare ESP32-S3-Touch-AMOLED-1.8 V2, 368 × 448.
 
 This standalone repository contains the single-screen motion controller, derived from
@@ -106,7 +106,7 @@ The motion edition applies a proper 90° coordinate rotation to both sensor vect
 `x = sensor.y; y = -sensor.x; z = sensor.z`.
 This deliberately replaces the full edition's reflected X/Y swap; do not assume
 identical signs when reusing older Max mappings. Verify with simple single-axis
-turns in the dancer's intended mounting orientation.
+turns in the person's intended mounting orientation.
 
 ## Sampling and timing
 
